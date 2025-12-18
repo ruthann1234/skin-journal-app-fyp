@@ -1,0 +1,18 @@
+platform :ios, '15.6'
+
+use_frameworks!
+use_modular_headers!
+
+# Flutter Pod helper
+flutter_application_path = File.expand_path('..', __dir__)
+require File.join(flutter_application_path, '.ios', 'Flutter', 'podhelper.rb')
+
+target 'Runner' do
+  flutter_ios_podfile_setup
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    flutter_additional_ios_build_settings(target)
+  end
+end

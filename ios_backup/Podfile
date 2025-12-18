@@ -1,0 +1,65 @@
+platform :ios, '16.0'
+ENV['COCOAPODS_DISABLE_STATS'] = 'true'
+
+project 'Runner', {
+  'Debug' => :debug,
+  'Profile' => :release,
+  'Release' => :release,
+}
+
+def flutter_root
+  generated_xcode_build_settings_path = File.expand_path(File.join('..', 'Flutter', 'Generated.xcconfig'), __FILE__)
+  unless File.exist?(generated_xcode_build_settings_path)
+    raise "#{generated_xcode_build_settings_path} must exist. Run 'flutter pub get' first."
+  end
+
+  File.foreach(generated_xcode_build_settings_path) do |line|
+    matches = line.match(/FLUTTER_ROOT\=(.*)/)
+    return matches[1].strip if matches
+  end
+
+  raise "FLUTTER_ROOT not found in #{generated_xcode_build_settings_path}."
+end
+
+require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
+
+flutter_ios_podfile_setup
+
+target 'Runner' do
+  # Use static frameworks to avoid linker conflicts
+  use_frameworks! :linkage => :static
+
+  flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+
+  # Firebase pods (ensure matching versions with pubspec.yaml)
+  pod 'Firebase/Core', '~> 11.15.0'
+  pod 'Firebase/Auth', '~> 11.15.0'
+  pod 'Firebase/Firestore', '~> 11.15.0'
+  pod 'Firebase/Storage', '~> 11.15.0'
+
+  # Additional dependencies
+  pod 'RecaptchaInterop', :modular_headers => false
+  pod 'leveldb-library', :modular_headers => false
+
+  target 'RunnerTests' do
+    inherit! :search_paths
+  end
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    flutter_additional_ios_build_settings(target)
+
+    target.build_configurations.each do |config|
+      # Force C++ standard & library
+      config.build_settings['CLANG_CXX_LIBRARY'] = 'libc++'
+      config.build_settings['CLANG_CXX_LANGUAGE_STANDARD'] = 'c++11'
+
+      # Apple Silicon fix: exclude arm64 for simulator
+      config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
+
+      # Ensure deployment target matches Podfile
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '16.0'
+    end
+  end
+end

@@ -1,0 +1,37 @@
+name: skin_app
+description: "A Flutter project for skin health tracking."
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.9.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # ✅ Firebase Core is required for all Firebase features
+  firebase_core: ^3.5.0
+
+  # ✅ Firestore database
+  cloud_firestore: ^5.4.0
+
+  # (Optional) other Firebase services you may add later:
+  # firebase_auth: ^5.3.0
+  # firebase_storage: ^12.2.0
+  # firebase_analytics: ^11.2.0
+
+  # Common Flutter icons
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  # assets:
+  #   - assets/images/
