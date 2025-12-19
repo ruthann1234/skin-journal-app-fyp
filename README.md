@@ -1,3 +1,4 @@
+
 # Skin Journal App
 
 A Flutter application for tracking skin health, including features like daily journal entries, symptom tracking, skincare routines, and progress visualization.
