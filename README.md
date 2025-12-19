@@ -1,16 +1,29 @@
-# skin_app
+# Skin Journal App
 
-A new Flutter project.
+A Flutter application for tracking skin health, including features like daily journal entries, symptom tracking, skincare routines, and progress visualization.
+
+## Features
+
+- Track skin symptoms over time
+- Log skincare routines and product usage
+- View progress with images and charts
+- Export reports in PDF
+- Settings and reminders for skincare
+
+> **Note:** All the app's feature implementations can be found in the `lib/` folder.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Follow these steps to run the project on your local machine.
 
-A few resources to get you started if this is your first Flutter project:
+### Prerequisites
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- [Flutter SDK](https://docs.flutter.dev/get-started/install)
+- IDE like VS Code or Android Studio
+- A device or emulator
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/ruthann1234/skin-journal-app.git
